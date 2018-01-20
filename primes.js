@@ -40,3 +40,5 @@ function getPrimes(n) {
   return primes;
 
 }
+
+module.exports = getPrimes;

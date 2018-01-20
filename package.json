@@ -1,0 +1,29 @@
+{
+  "name": "prime-multiplication-tables",
+  "version": "1.0.0",
+  "description": "A tool to generate tables of products of prime numbers",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ephraimg/prime-multiplication-tables.git"
+  },
+  "keywords": [
+    "prime",
+    "numbers"
+  ],
+  "author": "Ephraim Glick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ephraimg/prime-multiplication-tables/issues"
+  },
+  "homepage": "https://github.com/ephraimg/prime-multiplication-tables#readme",
+  "dependencies": {
+    "mocha": "^5.0.0"
+  }
+}
