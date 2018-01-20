@@ -41,4 +41,7 @@ function getPrimes(n) {
 
 }
 
-module.exports = getPrimes;
+// for testing with mocha
+if (typeof exports !== 'undefined') {
+    exports.getPrimes = getPrimes;
+}
