@@ -1,10 +1,9 @@
 
-function handleClick() {
-  // grab input text
-  let inputText = $("#numField").val();
+function handleClick(inputText) {
   // if input contains non-digits, reject it
-  if (!(/^\d+$/).test(inputText)) {
-    return alert('Invalid input! Please enter an integer.');
+  if (!(/^\d+$/).test(inputText) || inputText === '0') {
+    alert('Invalid input! Please enter a positive integer.');
+    return null;
   }
   // turn input text into integer
   let inputNum = Number(inputText);
