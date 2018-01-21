@@ -15,3 +15,12 @@ describe('The makeTableData function', function() {
     assert.equal(table[0].length, 7);
   });
 });
+
+describe('The makeTableData function', function() {
+  it('should calculate products correctly', function() {
+    let table = makeTableData(11);
+    assert.equal(table[2][3], 7 * 5);
+    assert.equal(table[3][2], table[2][3]);
+    assert.equal(table[10][10], 31 * 31);
+  });
+});
