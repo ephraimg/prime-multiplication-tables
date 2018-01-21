@@ -32,8 +32,3 @@ function getPrimes(n) {
   }
   return primes;
 }
-
-// for testing with mocha
-if (typeof exports !== 'undefined') {
-    exports.getPrimes = getPrimes;
-}
