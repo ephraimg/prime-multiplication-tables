@@ -6,7 +6,6 @@
     <title>Prime Multiplication Table Generator</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/sinon/lib/sinon.js"></script>
 
     <script type="text/javascript" src="primes.js"></script>
     <script type="text/javascript" src="index.js"></script>  
@@ -25,7 +24,7 @@
       id="numField"
       size=14>
     <br>
-    <button onclick="handleClick()">Go</button>
+    <button onclick="handleClick($('#numField').val())">Go</button>
     <div id="primesTable"></div>
 
   </body>
