@@ -1,26 +1,37 @@
 
+// store a known list of primes for reference in tests
+const prime100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541];
+
 describe('The getPrimes function', function() {
-  it('should return the first n primes for input n', function() {
-    assert.deepEqual(getPrimes(1), [2]);
-    assert.deepEqual(getPrimes(5), [2, 3, 5, 7, 11]);
-    assert.deepEqual(getPrimes(21), [2, 3, 5, 7, 11, 13, 17, 19, 23, 
-      29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73]);
-  });
+  for (let i = 0; i < 10; i++) {
+    const randSize = Math.floor(Math.random() * 100);
+    it(`should return the first ${randSize} primes for input ${randSize}`, function() {
+      assert.deepEqual(getPrimes(randSize), prime100.slice(0, randSize));
+    });
+  }
 });
 
 describe('The makeTableData function', function() {
-  it('should make an n x n array from an n-length input', function() {
-    let table = makeTableData(7);
-    assert.equal(table.length, 7);
-    assert.equal(table[0].length, 7);
-  });
+  for (let i = 0; i < 10; i++) {
+    const randSize = Math.floor(Math.random() * 25);
+    it(`should make an ${randSize} x ${randSize} array from an ${randSize}-length input`, function() {
+      let table = makeTableData(randSize);
+      assert.equal(table.length, randSize);
+      assert.equal(table[0].length, randSize);
+    });
+  }
 });
 
 describe('The makeTableData function', function() {
-  it('should calculate products correctly', function() {
-    let table = makeTableData(11);
-    assert.equal(table[2][3], 7 * 5);
-    assert.equal(table[3][2], table[2][3]);
-    assert.equal(table[10][10], 31 * 31);
-  });
+  const randSize = Math.floor(Math.random() * 100);
+  for (let i = 0; i < 10; i++) {
+    const num1 = Math.floor(Math.random() * randSize);
+    const num2 = Math.floor(Math.random() * randSize);
+    it(`should calculate the product of prime ${num1 + 1} and prime ${num2 + 2} correctly`, function() {
+      let table = makeTableData(randSize);
+      assert.equal(table[num1][num2], prime100[num1] * prime100[num2]);
+      assert.equal(table[num2][num1], table[num1][num2]);
+    });
+  }
 });
+
