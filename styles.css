@@ -21,7 +21,7 @@ td {
   border: 1px solid black;
 }
 
-tr:nth-child(2n+2) {
+tr:nth-child(2n+3) {
   background: #F0F0F0;
 }
 
