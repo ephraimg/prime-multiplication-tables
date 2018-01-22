@@ -4,6 +4,8 @@
 const tableData = [[4]];
 
 function handleClick(inputText) {
+  // clear the input field
+  $('#numField').val('');
   // if input contains non-digits, reject it
   if (!(/^\d+$/).test(inputText) || inputText === '0') {
     alert('Invalid input. Please enter a positive integer.');
