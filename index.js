@@ -8,19 +8,27 @@ function handleClick(inputText) {
   // turn input text into integer
   let inputNum = Number(inputText);
   // generate all the products for the table
-  let data = makeTableData(inputNum);
+  makeTableData(inputNum);
   // create and render the table to the DOM
-  renderTable(data);
+  return renderTable(inputNum);
 }
 
+// store makeTableData calculations for re-use
+// start with a minimal 2D array, will hold products of primes
+let data = [[4]];
+
 function makeTableData(n) {
+  // return immediately if already have the data
+  if (data.length >= n) { return; }
   // use helper function from primes.js
-  let primes = getPrimes(n);
-  // create a 2D array to hold products of primes
-  let data = Array(n).fill(0).map(el => Array(n));
+  getPrimes(n);
+  // store prior length of data (we mutate data below)
+  let startLength = data.length;
+  // add empty arrays to data to avoid error in loop below
+  while (data.length < n) { data.push([]); }
   // fill data array with products
-  for (let i = 0; i < primes.length; i++) {
-    for (let j = 0; j < primes.length; j++) {
+  for (let i = 0; i < n; i++) {
+    for (let j = startLength; j < n; j++) {
       data[i][j] = primes[i] * primes[j];
       data[j][i] = data[i][j];
     }  
@@ -28,10 +36,10 @@ function makeTableData(n) {
   return data;
 }
 
-function renderTable(data) {
+function renderTable(n) {
   // use the n primes as column headers
   let colHeaders = '';
-  for (let i = 0; i < data[0].length; i++) {
+  for (let i = 0; i < n; i++) {
     colHeaders += `<th scope="col">${primes[i]}</th>`
   }
   // create the table skeleton
@@ -44,7 +52,7 @@ function renderTable(data) {
     </table>
   `);
   // now we'll iterate through the n primes to make rows
-  for (let row = 0; row < data.length; row++) {
+  for (let row = 0; row < n; row++) {
     // create a row skeleton with the prime as header
     let $row = $(`
       <tr>
@@ -54,7 +62,7 @@ function renderTable(data) {
       </tr>
     `);
     // in the row, have a column entry for each product
-    for (let col = 0; col < data.length; col++) {
+    for (let col = 0; col < n; col++) {
       $row.append("<td>" + data[row][col] + "</td>");
     }
     // append the row to the whole table
@@ -63,4 +71,5 @@ function renderTable(data) {
   // clear any old table away and render the new one
   $("#primesTable").empty();
   $("#primesTable").append($table);
+  return $table;
 }
