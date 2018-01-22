@@ -1,75 +1,61 @@
 
+// this is to store makeTableData calculations for re-use
+// start with a minimal 2D array, will hold products of primes
+const tableData = [[4]];
+
 function handleClick(inputText) {
   // if input contains non-digits, reject it
   if (!(/^\d+$/).test(inputText) || inputText === '0') {
-    alert('Invalid input! Please enter a positive integer.');
+    alert('Invalid input. Please enter a positive integer.');
     return null;
   }
   // turn input text into integer
-  let inputNum = Number(inputText);
+  const inputNum = Number(inputText);
   // generate all the products for the table
-  makeTableData(inputNum);
+  addTableData(inputNum, tableData);
   // create and render the table to the DOM
-  return renderTable(inputNum);
+  return renderTable(inputNum, tableData);
 }
 
-// store makeTableData calculations for re-use
-// start with a minimal 2D array, will hold products of primes
-let data = [[4]];
-
-function makeTableData(n) {
+function addTableData(size, tableData) {
   // return immediately if already have the data
-  if (data.length >= n) { return; }
+  if (tableData.length >= size) { return tableData; }
   // use helper function from primes.js
-  getPrimes(n);
+  getPrimes(size);
   // store prior length of data (we mutate data below)
-  let startLength = data.length;
+  let startLength = tableData.length;
   // add empty arrays to data to avoid error in loop below
-  while (data.length < n) { data.push([]); }
+  while (tableData.length < size) { tableData.push([]); }
   // fill data array with products
-  for (let i = 0; i < n; i++) {
-    for (let j = startLength; j < n; j++) {
-      data[i][j] = primes[i] * primes[j];
-      data[j][i] = data[i][j];
+  for (let i = 0; i < size; i++) {
+    for (let j = startLength; j < size; j++) {
+      tableData[i][j] = primes[i] * primes[j];
+      tableData[j][i] = tableData[i][j];
     }  
   }
-  return data;
+  return tableData;
 }
 
-function renderTable(n) {
-  // use the n primes as column headers
+function renderTable(size, tableData) {
+  // use the size primes as column headers
   let colHeaders = '';
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < size; i++) {
     colHeaders += `<th scope="col">${primes[i]}</th>`
   }
   // create the table skeleton
-  let $table = $(`
-    <table>
-      <tr>
-        <th></th>
-        ${colHeaders}
-      </tr>
-    </table>
-  `);
+  let $table = $(`<table><tr><th></th>${colHeaders}</tr></table>`);
   // now we'll iterate through the n primes to make rows
-  for (let row = 0; row < n; row++) {
+  for (let row = 0; row < size; row++) {
     // create a row skeleton with the prime as header
-    let $row = $(`
-      <tr>
-        <th scope="row">
-          ${primes[row]}
-        </th>
-      </tr>
-    `);
-    // in the row, have a column entry for each product
-    for (let col = 0; col < n; col++) {
-      $row.append("<td>" + data[row][col] + "</td>");
+    let $row = $(`<tr><th scope="row">${primes[row]}</th></tr>`);
+    // in row, have a column entry for each product
+    for (let col = 0; col < size; col++) {
+      $row.append("<td>" + tableData[row][col] + "</td>");
     }
     // append the row to the whole table
     $table.append($row);
   }
-  // clear any old table away and render the new one
-  $("#primesTable").empty();
-  $("#primesTable").append($table);
+  // clear old table away (if any) and render the new one
+  $("#primesTable").empty().append($table);
   return $table;
 }

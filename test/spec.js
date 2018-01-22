@@ -19,15 +19,15 @@ describe('The getPrimes function', function() {
   }
 });
 
-describe('The makeTableData function', function() {
+describe('The addTableData function', function() {
   let randSize;
   for (let i = 0; i < 10; i++) {
     randSize = 1 + Math.floor(Math.random() * 24);
     it(`should ensure we have at least ${randSize} rows and columns of data
       given an input of ${randSize}`, function() {
-      makeTableData(randSize);
-      assert.isAtLeast(data.length, randSize);
-      assert.isAtLeast(data[0].length, randSize);
+      addTableData(randSize, tableData);
+      assert.isAtLeast(tableData.length, randSize);
+      assert.isAtLeast(tableData[0].length, randSize);
     });
   }
   randSize = 1 + Math.floor(Math.random() * 99);
@@ -35,9 +35,9 @@ describe('The makeTableData function', function() {
     const num1 = Math.floor(Math.random() * randSize);
     const num2 = Math.floor(Math.random() * randSize);
     it(`should calculate the product of prime ${num1 + 1} and prime ${num2 + 2} correctly`, function() {
-      makeTableData(randSize);
-      assert.equal(data[num1][num2], prime100[num1] * prime100[num2]);
-      assert.equal(data[num2][num1], data[num1][num2]);
+      addTableData(randSize, tableData);
+      assert.equal(tableData[num1][num2], prime100[num1] * prime100[num2]);
+      assert.equal(tableData[num2][num1], tableData[num1][num2]);
     });
   }
 });
@@ -46,7 +46,7 @@ let alert;
 
 describe('The handleClick function', function() {
   it('should return null for non-integer input', function() {
-    // turn alert into noop to allow test to conclude
+    // turn alert into noop to allow test to run properly
     alert = () => {};
     assert.equal(handleClick('abcd'), null);
   });
