@@ -9,6 +9,7 @@ const prime100 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
   419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 
   491, 499, 503, 509, 521, 523, 541];
 
+
 describe('The getPrimes function', function() {
   for (let i = 0; i < 10; i++) {
     const randSize = Math.floor(Math.random() * 100);
@@ -22,10 +23,11 @@ describe('The makeTableData function', function() {
   let randSize;
   for (let i = 0; i < 10; i++) {
     randSize = 1 + Math.floor(Math.random() * 24);
-    it(`should make an ${randSize} x ${randSize} array from an ${randSize}-length input`, function() {
-      let table = makeTableData(randSize);
-      assert.equal(table.length, randSize);
-      assert.equal(table[0].length, randSize);
+    it(`should ensure we have at least ${randSize} rows and columns of data
+      given an input of ${randSize}`, function() {
+      makeTableData(randSize);
+      assert.isAtLeast(data.length, randSize);
+      assert.isAtLeast(data[0].length, randSize);
     });
   }
   randSize = 1 + Math.floor(Math.random() * 99);
@@ -33,9 +35,9 @@ describe('The makeTableData function', function() {
     const num1 = Math.floor(Math.random() * randSize);
     const num2 = Math.floor(Math.random() * randSize);
     it(`should calculate the product of prime ${num1 + 1} and prime ${num2 + 2} correctly`, function() {
-      let table = makeTableData(randSize);
-      assert.equal(table[num1][num2], prime100[num1] * prime100[num2]);
-      assert.equal(table[num2][num1], table[num1][num2]);
+      makeTableData(randSize);
+      assert.equal(data[num1][num2], prime100[num1] * prime100[num2]);
+      assert.equal(data[num2][num1], data[num1][num2]);
     });
   }
 });
@@ -48,4 +50,12 @@ describe('The handleClick function', function() {
     alert = () => {};
     assert.equal(handleClick('abcd'), null);
   });
+  for (let i = 0; i < 10; i++) {
+    let randSize = 1 + Math.floor(Math.random() * 24);
+    it(`should return an ${randSize} x ${randSize} table for input ${randSize-1}`, function() {
+      let $newTable = handleClick(randSize);
+      assert.equal($newTable.find('tr').length, randSize + 1);
+      assert.equal($newTable.find('tr')[0].children.length, randSize + 1);
+    });
+  }
 })
