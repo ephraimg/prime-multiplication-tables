@@ -6,7 +6,7 @@
 - Run npm install
 - Open index.html in your browser
 - Enter an integer in the input field and click the 'Go' button or hit 'Enter' 
-  - Keep in mind the size of the result - for input 200, e.g., the browser will need to render a 40,000-cell table)
+  - Keep in mind the size of the result - for input 200, e.g., the browser will need to render a 40,000-cell table!
 - To run tests, open test/mochaTester.html in your browser
 
 ## Highlights
