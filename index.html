@@ -22,7 +22,8 @@
       type="text" 
       placeholder="Enter a number" 
       id="numField"
-      size=14>
+      size=14
+      onkeypress="if (event.keyCode == 13) {handleClick(this.value)}">
     <br>
     <button onclick="handleClick($('#numField').val())">Go</button>
     <div id="primesTable"></div>
